@@ -76,12 +76,20 @@ if(isset($_GET["submit"]))
     $Roll=$_GET["getRoll"];
     $College=$_GET["getCollege"];
     $Addmn=$_GET["getAddmno"];
-    echo $Name;
-    echo "<br>";
-    echo $Roll;
-    echo "<br>";
-    echo $College;
-    echo "<br>";
-    echo $Addmn;
+    $Servername="localhost";
+    $Dbusername="root";
+    $Dbpassword="";
+    $Dbname="mydatabase";
+    $connection=new mysqli($Servername,$Dbusername,$Dbpassword,$Dbname);
+    $Sql="INSERT INTO `student`( `Name`, `RollNo`, `Admno`, `College`) VALUES
+     ('$Name',$Roll,$Addmn,'$College')";
+    $result=$connection->query($Sql);
+    if($result===TRUE)
+    {
+        echo " successfull";
+    }
+    else {
+        echo $connection->error;
+    }
 }
 ?>
