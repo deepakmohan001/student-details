@@ -29,10 +29,10 @@
    <table class="table">
        <tr>
            <td>
-               student name
+               student Admno.
            </td>
            <td>
-               <input type="text"class="form-control"name="getName">
+               <input type="text"class="form-control"name="getAdmno">
            </td>
        </tr>
        <tr>
@@ -54,7 +54,28 @@
 <?php
 if(isset($_GET["submit"]))
 {
-$Name=$_GET["getName"];
-echo $Name;
+$Admno=$_GET["getAdmno"];
+$Servername="localhost";
+$Dbusername="root";
+$Dbpassword="";
+$Dbname="mydatabase";
+$connection=new mysqli($Servername,$Dbusername,$Dbpassword,$Dbname);
+$sql="SELECT  `name`, `rollno`,  `college` FROM `student` WHERE `admno`=$Admno";
+$result=$connection->query($sql);
+if($result->num_rows>0)
+{
+    while($row=$result->fetch_assoc())
+    {
+$name=$row["name"];
+$rollno=$row["rollno"];
+$college=$row["college"];
+echo "<table class='table'><tr><td>name</td><td>$name</td></tr>
+<tr><td>rollno</td><td>$rollno</td></tr>
+<tr><td>college</td><td>$college</td></tr>";
+    }
+}
+else{
+    echo"invalid";
+}
 }
 ?>

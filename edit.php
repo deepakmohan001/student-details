@@ -28,10 +28,10 @@
     <table class="table">
         <tr>
             <td>
-                student address
+                rollno
             </td>
             <td>
-                <input type="text" class="form-control"name="getAddress">
+                <input type="text" class="form-control"name="getrollno">
             </td>
         </tr>
         <tr>
@@ -51,7 +51,28 @@
 <?php
 if(isset($_GET["submit"]))
 {
-$Address=$_GET["getAddress"];
-echo $Address;
+$roll=$_GET["getrollno"];
+$Servername="localhost";
+$Dbusername="root";
+$Dbpassword="";
+$Dbname="mydatabase";
+$connection=new mysqli($Servername,$Dbusername,$Dbpassword,$Dbname);
+$sql="SELECT `Name`, `Admno`, `College` FROM `student` WHERE `rollNo`=$roll";
+$result=$connection->query($sql);
+if($result->num_rows>0)
+{
+    while($row=$result->fetch_assoc())
+    {
+        $Name=$row["Name"];
+        $Addmno=$row["Admno"];
+        $College=$row["College"];
+        echo "<table class='table'> <tr> <td> name </td> <td> <input type='text' value='$Name'/> </td> </tr>
+        <tr> <td> Admno </td> <td><input type='text' value='$Addmno' </td> </tr>
+        <tr> <td> college </td> <td> <input type='text' value='$College' </td> </tr>";
+    }
+}
+else{
+    echo "invalid";
+}
 }
 ?>
