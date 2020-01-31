@@ -66,13 +66,37 @@ if($result->num_rows>0)
         $Name=$row["Name"];
         $Addmno=$row["Admno"];
         $College=$row["College"];
-        echo "<table class='table'> <tr> <td> name </td> <td> <input type='text' value='$Name'/> </td> </tr>
-        <tr> <td> Admno </td> <td><input type='text' value='$Addmno' </td> </tr>
-        <tr> <td> college </td> <td> <input type='text' value='$College' </td> </tr>";
+        
+        echo "<form method='POST'><table class='table'> <tr> <td> name </td> <td> <input type='text'name='updatename' value='$Name'/> </td> </tr>
+        <tr> <td> Admno </td> <td><input type='text'name='updateadmno' value='$Addmno' </td> </tr>
+        <tr> <td> college </td> <td> <input type='text'name='updatecollege' value='$College' </td> </tr>
+        <tr><td><button type='submit' value='$roll' name='updatebutton' class='btn btn-success'/>update</button> <br> </form>";
     }
 }
 else{
     echo "invalid";
 }
 }
+if(isset($_POST["updatebutton"]))
+{
+    $upname=$_POST["updatename"];
+    $upadmno=$_POST["updateadmno"];
+    $updatecollege=$_POST["updatecollege"];
+    $rol=$_POST['updatebutton'];
+    $Servername="localhost";
+    $Dbusername="root";
+    $Dbpassword="";
+    $Dbname="mydatabase";
+    $connection=new mysqli($Servername,$Dbusername,$Dbpassword,$Dbname);
+    $sql="UPDATE `student` SET `name`='$upname',`admno`=$upadmno,`college`='$updatecollege'WHERE `rollno`=$rol";
+    $result=$connection->query($sql);
+    if($result===TRUE)
+    {
+        echo "success";
+    }
+    else{
+        echo "failed";
+    }
+}
+    
 ?>
