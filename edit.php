@@ -19,6 +19,9 @@
             <li class="nav-item">
               <a class="nav-link" href="edit.php">Edit</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="delete.php">Delete</a>
+            </li>
           </ul>
     </nav>
     <h2>
